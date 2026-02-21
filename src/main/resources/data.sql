@@ -1,59 +1,143 @@
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 1, 50, 5, 10, 100, 'Warehouse-A'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 1);
+INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location) VALUES
 
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 2, 30, 3, 5, 50, 'Warehouse-A'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 2);
+(1,  145, 7,  10, 300, 'Lima-Peru'),
+(2,  88,  5,  8,  200, 'Santiago-Chile'),
+(3,  120, 6,  10, 350, 'Bogotá-Colombia'),
+(4,  95,  4,  8,  250, 'Buenos Aires-Argentina'),
+(5,  52,  3,  5,  150, 'Lima-Peru'),
+(6,  74,  4,  10, 200, 'Ciudad de México-Mexico'),
+(7,  41,  2,  5,  120, 'São Paulo-Brasil'),
+(8,  160, 9,  15, 400, 'Lima-Peru'),
+(9,  110, 8,  12, 250, 'Bogotá-Colombia'),
+(10, 38,  2,  5,  100, 'Santiago-Chile'),
+(11, 130, 7,  12, 300, 'Lima-Peru'),
+(12, 193, 6,  15, 400, 'Ciudad de México-Mexico'),
+(13, 178, 10, 15, 450, 'Buenos Aires-Argentina'),
+(14, 88,  5,  8,  200, 'Lima-Peru'),
+(15, 75,  4,  8,  200, 'Santiago-Chile'),
+(16, 130, 7,  12, 350, 'Bogotá-Colombia'),
+(17, 44,  2,  5,  120, 'Lima-Peru'),
+(18, 62,  3,  8,  150, 'Quito-Ecuador'),
+(19, 45,  3,  5,  120, 'Lima-Peru'),
+(20, 112, 6,  10, 300, 'São Paulo-Brasil'),
+(21, 58,  4,  8,  150, 'Ciudad de México-Mexico'),
+(22, 99,  5,  10, 250, 'Lima-Peru'),
+(23, 85,  4,  8,  200, 'Buenos Aires-Argentina'),
+(24, 27,  1,  5,  100, 'Lima-Peru'),
+(25, 175, 9,  15, 450, 'Bogotá-Colombia'),
+(26, 140, 8,  12, 350, 'Lima-Peru'),
+(27, 200, 10, 15, 500, 'Santiago-Chile'),
+(28, 68,  4,  8,  200, 'Lima-Peru'),
+(29, 155, 8,  12, 400, 'Ciudad de México-Mexico'),
+(30, 110, 6,  10, 300, 'Lima-Peru'),
 
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 3, 25, 2, 5, 50, 'Warehouse-A'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 3);
+-- CLOTHING (31-60)
+(31, 178, 10, 15, 500, 'Lima-Peru'),
+(32, 155, 9,  15, 500, 'São Paulo-Brasil'),
+(33, 143, 7,  12, 400, 'Bogotá-Colombia'),
+(34, 168, 9,  15, 450, 'Buenos Aires-Argentina'),
+(35, 200, 10, 15, 500, 'Lima-Peru'),
+(36, 132, 4,  10, 350, 'Santiago-Chile'),
+(37, 175, 8,  15, 450, 'Ciudad de México-Mexico'),
+(38, 145, 7,  12, 400, 'Lima-Peru'),
+(39, 190, 9,  15, 500, 'Quito-Ecuador'),
+(40, 200, 10, 15, 500, 'Lima-Peru'),
+(41, 185, 9,  15, 500, 'Bogotá-Colombia'),
+(42, 76,  2,  8,  200, 'Santiago-Chile'),
+(43, 65,  3,  8,  180, 'Buenos Aires-Argentina'),
+(44, 164, 7,  12, 400, 'Lima-Peru'),
+(45, 148, 6,  12, 380, 'São Paulo-Brasil'),
+(46, 170, 8,  15, 450, 'Ciudad de México-Mexico'),
+(47, 195, 10, 15, 500, 'Lima-Peru'),
+(48, 180, 9,  15, 500, 'Caracas-Venezuela'),
+(49, 155, 8,  12, 400, 'Bogotá-Colombia'),
+(50, 165, 8,  12, 420, 'Lima-Peru'),
+(51, 90,  5,  10, 250, 'Santiago-Chile'),
+(52, 130, 7,  12, 350, 'Buenos Aires-Argentina'),
+(53, 110, 6,  10, 300, 'Lima-Peru'),
+(54, 88,  4,  8,  200, 'Montevideo-Uruguay'),
+(55, 200, 10, 15, 500, 'Ciudad de México-Mexico'),
+(56, 145, 7,  12, 380, 'Lima-Peru'),
+(57, 120, 6,  10, 320, 'São Paulo-Brasil'),
+(58, 95,  5,  10, 260, 'Bogotá-Colombia'),
+(59, 140, 7,  12, 370, 'Lima-Peru'),
+(60, 75,  3,  8,  200, 'La Paz-Bolivia'),
 
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 4, 15, 1, 5, 30, 'Warehouse-B'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 4);
+-- HOME & KITCHEN (61-90)
+(61, 34,  1,  5,  100, 'Lima-Peru'),
+(62, 48,  2,  5,  130, 'Santiago-Chile'),
+(63, 110, 6,  10, 300, 'Bogotá-Colombia'),
+(64, 75,  4,  8,  200, 'Buenos Aires-Argentina'),
+(65, 99,  6,  10, 250, 'Lima-Peru'),
+(66, 165, 8,  12, 420, 'Ciudad de México-Mexico'),
+(67, 180, 8,  15, 450, 'Lima-Peru'),
+(68, 42,  2,  5,  120, 'São Paulo-Brasil'),
+(69, 145, 5,  12, 350, 'Lima-Peru'),
+(70, 30,  1,  5,  100, 'Santiago-Chile'),
+(71, 55,  3,  5,  150, 'Bogotá-Colombia'),
+(72, 28,  1,  5,  100, 'Lima-Peru'),
+(73, 130, 6,  12, 340, 'Buenos Aires-Argentina'),
+(74, 120, 4,  10, 300, 'Lima-Peru'),
+(75, 88,  5,  8,  220, 'Quito-Ecuador'),
+(76, 25,  1,  5,  100, 'Ciudad de México-Mexico'),
+(77, 95,  5,  10, 250, 'Lima-Peru'),
+(78, 60,  3,  8,  160, 'São Paulo-Brasil'),
+(79, 175, 9,  15, 450, 'Bogotá-Colombia'),
+(80, 65,  3,  8,  170, 'Lima-Peru'),
+(81, 80,  4,  8,  200, 'Santiago-Chile'),
+(82, 20,  1,  5,  100, 'Buenos Aires-Argentina'),
+(83, 55,  3,  5,  150, 'Lima-Peru'),
+(84, 115, 6,  10, 300, 'Caracas-Venezuela'),
+(85, 90,  5,  8,  230, 'Lima-Peru'),
+(86, 150, 8,  12, 390, 'Montevideo-Uruguay'),
+(87, 200, 10, 15, 500, 'Lima-Peru'),
+(88, 140, 7,  12, 360, 'Ciudad de México-Mexico'),
+(89, 180, 9,  15, 460, 'São Paulo-Brasil'),
+(90, 120, 6,  10, 310, 'Lima-Peru'),
 
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 5, 100, 10, 20, 200, 'Warehouse-C'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 5);
+-- BOOKS (91-120)
+(91,  190, 9,  15, 500, 'Lima-Peru'),
+(92,  175, 7,  15, 500, 'São Paulo-Brasil'),
+(93,  200, 10, 15, 500, 'Bogotá-Colombia'),
+(94,  87,  5,  8,  200, 'Lima-Peru'),
+(95,  165, 6,  12, 400, 'Santiago-Chile'),
+(96,  198, 10, 15, 500, 'Montevideo-Uruguay'),
+(97,  145, 7,  12, 380, 'Lima-Peru'),
+(98,  110, 5,  10, 290, 'Buenos Aires-Argentina'),
+(99,  170, 8,  15, 440, 'Ciudad de México-Mexico'),
+(100, 155, 7,  12, 400, 'Lima-Peru'),
+(101, 195, 9,  15, 500, 'Quito-Ecuador'),
+(102, 160, 8,  12, 410, 'Bogotá-Colombia'),
+(103, 185, 9,  15, 480, 'Lima-Peru'),
+(104, 130, 6,  10, 340, 'Santiago-Chile'),
+(105, 150, 7,  12, 390, 'São Paulo-Brasil'),
+(106, 140, 6,  12, 360, 'Lima-Peru'),
+(107, 175, 8,  15, 450, 'Buenos Aires-Argentina'),
+(108, 165, 8,  12, 420, 'Ciudad de México-Mexico'),
+(109, 80,  4,  8,  200, 'Lima-Peru'),
+(110, 120, 5,  10, 310, 'Caracas-Venezuela'),
+(111, 200, 10, 15, 500, 'Lima-Peru'),
+(112, 145, 7,  12, 370, 'Santiago-Chile'),
+(113, 100, 5,  10, 260, 'Bogotá-Colombia'),
+(114, 130, 6,  10, 340, 'Lima-Peru'),
+(115, 90,  4,  8,  230, 'São Paulo-Brasil'),
+(116, 110, 5,  10, 290, 'Lima-Peru'),
+(117, 155, 7,  12, 400, 'Buenos Aires-Argentina'),
+(118, 170, 8,  15, 440, 'Ciudad de México-Mexico'),
+(119, 45,  2,  5,  120, 'Lima-Peru'),
+(120, 35,  1,  5,  100, 'Quito-Ecuador'),
 
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 6, 75, 8, 15, 150, 'Warehouse-C'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 6);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 7, 60, 6, 15, 120, 'Warehouse-C'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 7);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 8, 40, 4, 10, 80, 'Warehouse-D'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 8);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 9, 35, 3, 10, 70, 'Warehouse-D'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 9);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 10, 20, 2, 5, 40, 'Warehouse-D'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 10);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 11, 150, 15, 30, 300, 'Warehouse-E'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 11);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 12, 200, 20, 40, 400, 'Warehouse-E'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 12);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 13, 80, 8, 20, 160, 'Warehouse-F'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 13);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 14, 45, 5, 10, 90, 'Warehouse-F'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 14);
-
-INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level, max_stock_level, location)
-SELECT 15, 12, 1, 3, 25, 'Warehouse-F'
-    WHERE NOT EXISTS (SELECT 1 FROM inventory WHERE product_id = 15);
+-- SPORTS (121-150)
+(121, 28,  1,  5,  100, 'Lima-Peru'),
+(122, 22,  1,  5,  100, 'Santiago-Chile'),
+(123, 35,  2,  5,  110, 'Bogotá-Colombia'),
+(124, 73,  4,  8,  200, 'Buenos Aires-Argentina'),
+(125, 150, 8,  12, 400, 'Lima-Peru'),
+(126, 95,  5,  10, 250, 'Ciudad de México-Mexico'),
+(127, 55,  3,  5,  150, 'São Paulo-Brasil'),
+(128, 188, 9,  15, 450, 'Lima-Peru'),
+(129, 30,  1,  5,  100, 'Santiago-Chile'),
+(130, 150, 8,  12, 400, 'Bogotá-Colombia'),
+(131, 120, 6,  10, 310, 'Lima-Peru'),
+(132, 68,  3,  8,  180, 'Buenos Aires-Argentina'),
+(133, 25,  1,  5,  100, 'Quito-Ecuador');
