@@ -140,4 +140,5 @@ INSERT INTO inventory (product_id, quantity, reserved_quantity, min_stock_level,
 (130, 150, 8,  12, 400, 'Bogotá-Colombia'),
 (131, 120, 6,  10, 310, 'Lima-Peru'),
 (132, 68,  3,  8,  180, 'Buenos Aires-Argentina'),
-(133, 25,  1,  5,  100, 'Quito-Ecuador');
+(133, 25,  1,  5,  100, 'Quito-Ecuador')
+ON CONFLICT (product_id) DO NOTHING;
