@@ -23,67 +23,58 @@ public class InventoryService {
     private final InventoryRepository inventoryRepository;
     private final ProductClient productClient;
 
-    // Obtener Inventario
     public List<InventoryResponse> getAllInventory() {
-        log.info("Obteniendo el inventario");
+        log.info("Getting inventory");
         return inventoryRepository.findAll()
                 .stream()
                 .map(InventoryResponse::new)
                 .collect(Collectors.toList());
     }
 
-    // Obtener x id
     public InventoryResponse getInventoryById(Long id) {
-        log.info("Obteniendo inventario con id: {}", id);
+        log.info("Obtaining inventory with id: {}", id);
         Inventory inventory = inventoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inventario no encontrado con id: " + id));
+                .orElseThrow(() -> new RuntimeException("Inventory not found with id: " + id));
         return new InventoryResponse(inventory);
     }
 
-    // Obtener producto x id
     public InventoryResponse getInventoryByProductId(Long productId) {
-        log.info("Obteniendo producto del inventario con id: {}", productId);
+        log.info("Retrieving product from inventory with id: {}", productId);
         Inventory inventory = inventoryRepository.findByProductId(productId)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + productId));
+                .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
         return new InventoryResponse(inventory);
     }
 
-    // Obtener productos con stock bajo
     public List<InventoryResponse> getLowStockItems() {
-        log.info("Obteniendo bajo stock");
+        log.info("Getting low stock");
         return inventoryRepository.findLowStockItems()
                 .stream()
                 .map(InventoryResponse::new)
                 .collect(Collectors.toList());
     }
 
-    // Obtener por ubicacion
     public List<InventoryResponse> getInventoryByLocation(String location) {
-        log.info("Obteniendo inventario por ubicacion: {}", location);
+        log.info(": {}", location);
         return inventoryRepository.findByLocation(location)
                 .stream()
                 .map(InventoryResponse::new)
                 .collect(Collectors.toList());
     }
 
-    // Crear inventario
     @Transactional
     public InventoryResponse createInventory(InventoryRequest request) {
-        log.info("Creando inventario para producto: {}", request.getProductId());
-
-        // Verificar que el producto existe
+        log.info("Creating inventory for product: {}", request.getProductId());
         try {
             ProductResponse product = productClient.getProductById(request.getProductId());
             if (!product.getActive()) {
-                throw new RuntimeException("No se puede crear un inventario con un producto inactivo");
+                throw new RuntimeException("You cannot create an inventory with an inactive product");
             }
         } catch (Exception e) {
-            throw new RuntimeException("Producto no encontrado con id: " + request.getProductId());
+            throw new RuntimeException("Product not found with ID: " + request.getProductId());
         }
 
-        // Verificar que no exista inventario para ese producto
         if (inventoryRepository.findByProductId(request.getProductId()).isPresent()) {
-            throw new RuntimeException("Ya existe un inventario para este producto: " + request.getProductId());
+            throw new RuntimeException("There is already an inventory for this product.: " + request.getProductId());
         }
         Inventory inventory = new Inventory();
         inventory.setProductId(request.getProductId());
@@ -93,70 +84,65 @@ public class InventoryService {
         inventory.setMaxStockLevel(request.getMaxStockLevel());
         inventory.setLocation(request.getLocation());
         Inventory savedInventory = inventoryRepository.save(inventory);
-        log.info("Inventario creado correctamente con id: {}", savedInventory.getId());
+        log.info("Inventory created successfully with id: {}", savedInventory.getId());
         return new InventoryResponse(savedInventory);
     }
 
-    // Actualizar inventario
     @Transactional
     public InventoryResponse updateInventory(Long id, InventoryRequest request) {
-        log.info("Actualizando inventario con id: {}", id);
+        log.info("Updating inventory with id: {}", id);
         Inventory inventory = inventoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inventario no encontrado con id: " + id));
+                .orElseThrow(() -> new RuntimeException("Inventory not found with id: " + id));
         inventory.setQuantity(request.getQuantity());
         inventory.setReservedQuantity(request.getReservedQuantity());
         inventory.setMinStockLevel(request.getMinStockLevel());
         inventory.setMaxStockLevel(request.getMaxStockLevel());
         inventory.setLocation(request.getLocation());
         Inventory updatedInventory = inventoryRepository.save(inventory);
-        log.info("Inventario actualizado correctamente");
+        log.info("Inventory updated correctly");
         return new InventoryResponse(updatedInventory);
     }
 
-    // Agregar Stock
     @Transactional
     public InventoryResponse addStock(Long id, StockUpdateRequest request) {
-        log.info("Agregando {} unidades al inventario, id: {}", request.getQuantity(), id);
+        log.info("Adding {} units to inventory, id: {}", request.getQuantity(), id);
         Inventory inventory = inventoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inventario no encontrado con id: " + id));
+                .orElseThrow(() -> new RuntimeException("Inventory not found with id: " + id));
         inventory.setQuantity(inventory.getQuantity() + request.getQuantity());
         Inventory updatedInventory = inventoryRepository.save(inventory);
-        log.info("Stock agregado correctamente. Nueva cantidad: {}", updatedInventory.getQuantity());
+        log.info("Stock added successfully. New quantity: {}", updatedInventory.getQuantity());
         return new InventoryResponse(updatedInventory);
     }
 
-    // Reducir stock
     @Transactional
     public InventoryResponse reduceStock(Long id, StockUpdateRequest request) {
-        log.info("Reduciendo {} unidades del inventario, id: {}", request.getQuantity(), id);
+        log.info("Reducing {} units to inventory, id: {}", request.getQuantity(), id);
         Inventory inventory = inventoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Inventario no encontrado con id: " + id));
+                .orElseThrow(() -> new RuntimeException("Inventory not found with id: " + id));
         if (!inventory.canFulfill(request.getQuantity())) {
-            throw new RuntimeException("Stock insuficiente. Disponible: " + inventory.getAvailableQuantity()
-                    + ", Solicitado: " + request.getQuantity());
+            throw new RuntimeException("Insufficient stock. Available: " + inventory.getAvailableQuantity()
+                    + ", Required: " + request.getQuantity());
         }
         inventory.setQuantity(inventory.getQuantity() - request.getQuantity());
         Inventory updatedInventory = inventoryRepository.save(inventory);
-        log.info("Stock reducido correctamente. Nueva cantidad: {}", updatedInventory.getQuantity());
+        log.info("Stock reduced correctly. New quantity.: {}", updatedInventory.getQuantity());
         return new InventoryResponse(updatedInventory);
     }
 
-    // Eliminar inventario
     @Transactional
     public void deleteInventory(Long id) {
-        log.info("Eliminando inventario con id: {}", id);
+        log.info("Deleting inventory with id: {}", id);
         if (!inventoryRepository.existsById(id)) {
-            throw new RuntimeException("Inventario no encontrado con id: " + id);
+            throw new RuntimeException("Inventory not found with id: " + id);
         }
         inventoryRepository.deleteById(id);
-        log.info("Inventario eliminado correctamente");
+        log.info("Inventory successfully deleted");
     }
 
-    // Verificar Disponibilidad
     public boolean checkAvailability(Long productId, Integer quantity) {
-        log.info("Revisando disponibilidad de producto: {}, cantidad: {}", productId, quantity);
+        log.info("Checking product availability: {}, amount: {}", productId, quantity);
         Inventory inventory = inventoryRepository.findByProductId(productId)
-                .orElseThrow(() -> new RuntimeException("Inventario no encontrado de producto: " + productId));
+                .orElseThrow(() -> new RuntimeException("Product inventory not found: " + productId));
         return inventory.canFulfill(quantity);
     }
 }

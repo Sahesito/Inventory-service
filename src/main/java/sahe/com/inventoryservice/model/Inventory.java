@@ -46,7 +46,6 @@ public class Inventory {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Métodos de negocio
     public Integer getAvailableQuantity() {
         return quantity - reservedQuantity;
     }
